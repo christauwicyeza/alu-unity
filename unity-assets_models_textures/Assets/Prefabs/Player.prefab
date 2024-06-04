@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7316919855534309493}
   - component: {fileID: 3420478356579864927}
   - component: {fileID: -6811706304739697007}
+  - component: {fileID: -542190083253081728}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -123,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
+  fallThreshold: -10
 --- !u!54 &-6811706304739697007
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -150,3 +152,16 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!114 &-542190083253081728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8357956187858435342}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f652c0519d2d9741adc94f2595298c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 0}
