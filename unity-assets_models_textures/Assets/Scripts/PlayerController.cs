@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
+    public float fallThreshold = -10f;
+    private Vector3 startPosition;
     
     private Rigidbody rb;
     private bool isGrounded;
@@ -11,13 +13,15 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous; // Improve collision detection
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+         startPosition = transform.position;
     }
 
     private void Update()
     {
         MovePlayer();
         Jump();
+        CheckFalling(); 
     }
 
     private void MovePlayer()
@@ -36,6 +40,19 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
+    }
+     private void CheckFalling()
+    {
+        if (transform.position.y < fallThreshold)
+        {
+            Respawn();
+        }
+    }
+
+    private void Respawn()
+    {
+        transform.position = startPosition;
+        rb.velocity = Vector3.zero; 
     }
 
     private void OnCollisionEnter(Collision collision)
