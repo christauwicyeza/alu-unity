@@ -28,6 +28,11 @@ public class Timer : MonoBehaviour
         timerStarted = true;
     }
 
+    public void StopTimer()
+    {
+        timerStarted = false;
+    }
+
     private void UpdateTimerText(float elapsedTime)
     {
         int minutes = Mathf.FloorToInt(elapsedTime / 60f);
