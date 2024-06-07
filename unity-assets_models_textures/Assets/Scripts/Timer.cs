@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public Text timerText; // Reference to the TimerText Text object
+    public Text timerText;
 
     private float startTime;
     private bool timerStarted;
