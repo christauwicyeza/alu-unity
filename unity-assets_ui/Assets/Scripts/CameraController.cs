@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     public Transform player;
     public float angleRotation = 45f;
-    public bool isInverted = true;
 
     private Vector3 distanceFromPlayer = Vector3.zero;
     private float rotationX = 9.0f;
     private float rotationY = 0.0f;
+    private bool isInverted;
 
     public float minYRotation = -60f;
     public float maxYRotation = 60f;
 
     private void Awake()
     {
+        isInverted = PlayerPrefs.GetInt("isInverted", 0) == 1;
         distanceFromPlayer = transform.position - player.position;
     }
 
@@ -33,12 +32,10 @@ public class CameraController : MonoBehaviour
         if (isInverted)
         {
             rotationY += Input.GetAxis("Mouse Y") * angleRotation * Time.deltaTime;
-            Debug.Log("Inverted Mode: Camera moving inverted");
         }
         else
         {
             rotationY -= Input.GetAxis("Mouse Y") * angleRotation * Time.deltaTime;
-            Debug.Log("Normal Mode: Camera moving normally");
         }
 
         rotationY = Mathf.Clamp(rotationY, minYRotation, maxYRotation);
@@ -54,10 +51,5 @@ public class CameraController : MonoBehaviour
     void FollowPlayer()
     {
         transform.position = player.transform.position + distanceFromPlayer;
-    }
-
-    public void SetInverted(bool value)
-    {
-        isInverted = value;
     }
 }

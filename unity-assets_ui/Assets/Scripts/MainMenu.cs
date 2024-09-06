@@ -23,6 +23,10 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void Options()
     {
+
+        PlayerPrefs.SetString("previousScene", SceneManager.GetActiveScene().name);
+        PlayerPrefs.Save();
+        
         SceneManager.LoadScene("Options");
     }
 
