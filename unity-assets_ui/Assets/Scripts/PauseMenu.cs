@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Manages pausing and resuming the game.
+/// Manages pausing, resuming, restarting, and scene navigation.
 /// </summary>
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseCanvas; // Reference to the PauseCanvas
+    public GameObject pauseCanvas;
     private bool isPaused = false;
 
     /// <summary>
-    /// Pauses the game and shows the pause menu.
+    /// Pauses the game.
     /// </summary>
     public void Pause()
     {
@@ -21,13 +22,40 @@ public class PauseMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Resumes the game and hides the pause menu.
+    /// Resumes the game.
     /// </summary>
     public void Resume()
     {
         isPaused = false;
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    /// <summary>
+    /// Restarts the current level.
+    /// </summary>
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
+    }
+
+    /// <summary>
+    /// Loads the Main Menu scene.
+    /// </summary>
+    public void MainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    /// <summary>
+    /// Loads the Options scene.
+    /// </summary>
+    public void Options()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Options");
     }
 
     void Update()
