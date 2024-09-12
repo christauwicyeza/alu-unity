@@ -41,15 +41,13 @@ public class CameraController : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, minYRotation, maxYRotation);
 
         Quaternion rotation = Quaternion.Euler(rotationY, rotationX, 0);
+        transform.position = player.position + distanceFromPlayer;
         transform.rotation = rotation;
-
-        transform.position = player.position - (rotation * new Vector3(0, 0, 5));
-
-        transform.LookAt(player);
     }
 
     void FollowPlayer()
     {
-        transform.position = player.transform.position + distanceFromPlayer;
+        Vector3 targetPosition = player.position + distanceFromPlayer;
+        transform.position = targetPosition;
     }
 }
