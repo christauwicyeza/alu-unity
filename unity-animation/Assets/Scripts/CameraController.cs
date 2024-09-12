@@ -4,6 +4,7 @@ public class CameraController : MonoBehaviour
 {
     public Transform player;
     public float angleRotation = 45f;
+    public float playerRotationSpeed = 5f;
 
     private Vector3 distanceFromPlayer = Vector3.zero;
     private float rotationX = 9.0f;
@@ -23,6 +24,7 @@ public class CameraController : MonoBehaviour
     {
         FollowPlayer();
         RotateAroundPlayer();
+        RotatePlayer();
     }
 
     void RotateAroundPlayer()
@@ -49,5 +51,15 @@ public class CameraController : MonoBehaviour
     {
         Vector3 targetPosition = player.position + distanceFromPlayer;
         transform.position = targetPosition;
+    }
+
+    void RotatePlayer()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        if (horizontal != 0)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0, rotationX, 0);
+            player.rotation = Quaternion.Slerp(player.rotation, targetRotation, Time.deltaTime * playerRotationSpeed);
+        }
     }
 }

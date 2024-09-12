@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     public float fallThreshold = -10f;
     private Vector3 startPosition;
-    
+
     private Rigidbody rb;
     private bool isGrounded;
 
@@ -14,14 +14,15 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-         startPosition = transform.position;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Freeze X and Z rotations
+        startPosition = transform.position;
     }
 
     private void Update()
     {
         MovePlayer();
         Jump();
-        CheckFalling(); 
+        CheckFalling();
     }
 
     private void MovePlayer()
@@ -30,6 +31,13 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        if (movement.magnitude > 0) // Only rotate when there is movement
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f); // Smooth rotation
+        }
+
         rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, movement.z * moveSpeed);
     }
 
@@ -41,7 +49,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
-     private void CheckFalling()
+
+    private void CheckFalling()
     {
         if (transform.position.y < fallThreshold)
         {
@@ -52,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private void Respawn()
     {
         transform.position = startPosition;
-        rb.velocity = Vector3.zero; 
+        rb.velocity = Vector3.zero;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -71,4 +80,3 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
- 
