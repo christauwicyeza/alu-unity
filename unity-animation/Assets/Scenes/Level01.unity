@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19199547, g: 0.5947936, b: 0.7738039, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1750,6 +1750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 988562415}
   angleRotation: 45
+  playerRotationSpeed: 5
   minYRotation: -60
   maxYRotation: 60
 --- !u!1 &464701761
@@ -1950,6 +1951,7 @@ GameObject:
   - component: {fileID: 518919547}
   - component: {fileID: 518919546}
   - component: {fileID: 518919545}
+  - component: {fileID: 518919550}
   m_Layer: 0
   m_Name: CutsceneCamera
   m_TagString: Untagged
@@ -2096,6 +2098,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -3, y: 0, z: 0}
+--- !u!114 &518919550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518919544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3711995b091d7cc448e63101adba2257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 459769221}
+  player: {fileID: 1323913421}
+  timerCanvas: {fileID: 1405060380}
+  cutsceneCameraAnimator: {fileID: 518919545}
+  introAnimationName: Intro01
 --- !u!4 &552151723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9069115365609054727, guid: 60f79905accf3b24fa0114b941f1aac0,
@@ -3345,7 +3364,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1047830812646476720}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1323913421}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f652c0519d2d9741adc94f2595298c5, type: 3}
@@ -4546,6 +4565,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerScript: {fileID: 988562417}
   winCanvas: {fileID: 1952271634}
+--- !u!1 &1323913421 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8357956187858435342, guid: eee92b81051fd274f98a9cb401a1ff52,
+    type: 3}
+  m_PrefabInstance: {fileID: 1047830812646476720}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1332988327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5009,6 +5034,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398709226}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1405060380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2671395862412581006, guid: 4a32ae254f235554d996fad475f908d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6181433099105023544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1413615070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7475,6 +7506,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3420478356579864927, guid: eee92b81051fd274f98a9cb401a1ff52,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6903573234826649314, guid: eee92b81051fd274f98a9cb401a1ff52,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 48a930cbbca2fd849ad0cd624f6437f5, type: 2}
+    - target: {fileID: 7294120130214449668, guid: eee92b81051fd274f98a9cb401a1ff52,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7294120130214449668, guid: eee92b81051fd274f98a9cb401a1ff52,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7708,6 +7754,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TimerCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671395862412581006, guid: 4a32ae254f235554d996fad475f908d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4313543209142777639, guid: 4a32ae254f235554d996fad475f908d6,
         type: 3}
