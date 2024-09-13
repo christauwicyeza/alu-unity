@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isGrounded;
+    private PlayerAnimatorCont animatorController;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animatorController = GetComponent<PlayerAnimatorCont>();
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // Freeze X and Z rotations
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; 
         startPosition = transform.position;
     }
 
@@ -32,13 +34,15 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        if (movement.magnitude > 0) // Only rotate when there is movement
+        if (movement.magnitude > 0) 
         {
             Quaternion targetRotation = Quaternion.LookRotation(movement);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f); // Smooth rotation
         }
 
         rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, movement.z * moveSpeed);
+
+        animatorController.UpdateAnimatorParameters(movement, Input.GetKeyDown(KeyCode.Space), rb.velocity.y);
     }
 
     private void Jump()
