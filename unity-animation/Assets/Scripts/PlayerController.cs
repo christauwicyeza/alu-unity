@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
@@ -9,15 +9,26 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
     private bool isGrounded;
-    private PlayerAnimatorCont animatorController;
+    private Animator animator;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animatorController = GetComponent<PlayerAnimatorCont>();
+        animator = GetComponentInChildren<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator not found on any child GameObject.");
+        }
+
         rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; 
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         startPosition = transform.position;
+    }
+
+    private void FixedUpdate()
+    {
+        CheckGroundStatus();
     }
 
     private void Update()
@@ -34,15 +45,24 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
-        if (movement.magnitude > 0) 
+        if (movement.magnitude > 0)
         {
             Quaternion targetRotation = Quaternion.LookRotation(movement);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f); // Smooth rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, movement.z * moveSpeed);
+
+            if (animator != null)
+            {
+                animator.SetBool("IsRunning", true);
+            }
         }
-
-        rb.velocity = new Vector3(movement.x * moveSpeed, rb.velocity.y, movement.z * moveSpeed);
-
-        animatorController.UpdateAnimatorParameters(movement, Input.GetKeyDown(KeyCode.Space), rb.velocity.y);
+        else
+        {
+            if (animator != null)
+            {
+                animator.SetBool("IsRunning", false);
+            }
+        }
     }
 
     private void Jump()
@@ -51,6 +71,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Jump");
+            }
         }
     }
 
@@ -59,6 +84,11 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < fallThreshold)
         {
             Respawn();
+
+            if (animator != null)
+            {
+                animator.SetTrigger("Fall");
+            }
         }
     }
 
@@ -66,6 +96,19 @@ public class PlayerController : MonoBehaviour
     {
         transform.position = startPosition;
         rb.velocity = Vector3.zero;
+    }
+
+    private void CheckGroundStatus()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
