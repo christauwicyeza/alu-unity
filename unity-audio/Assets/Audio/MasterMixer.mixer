@@ -136,6 +136,8 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: ebb4b369c1646a84f8cc605c18ba247e
+    name: MyExposedParam
   - guid: 44b184422560ec247bee50e4ed03565c
     name: BGMVolume
   m_AudioMixerGroupViews:
@@ -147,7 +149,7 @@ AudioMixerController:
     - 61a11dac15438e143b28ba73aacaa10a
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 4102277823661120814}
+  m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0

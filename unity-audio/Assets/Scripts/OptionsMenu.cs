@@ -3,77 +3,70 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-/// <summary>
-/// Handles options menu.
-/// </summary>
 public class OptionsMenu : MonoBehaviour
 {
     public Toggle invertYToggle;
-    public Slider bgmSlider;  // Reference to the BGM Slider
-    public AudioMixer audioMixer;  // Reference to the AudioMixer
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+    public AudioMixer audioMixer;
     private bool originalInvertedState;
     private float originalBGMVolume;
+    private float originalSFXVolume;
 
-    /// <summary>
-    /// Loads Invert Y-Axis state and BGM volume.
-    /// </summary>
     private void Start()
     {
-        // Load Invert Y-Axis settings
         originalInvertedState = PlayerPrefs.GetInt("isInverted", 0) == 1;
         invertYToggle.isOn = originalInvertedState;
 
-        // Load BGM volume settings
-        float savedBGMVolume = PlayerPrefs.GetFloat("BGMVolume", 0.75f); // Default to 75% volume
+        float savedBGMVolume = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
         bgmSlider.value = savedBGMVolume;
         SetBGMVolume(savedBGMVolume);
-        originalBGMVolume = savedBGMVolume;  // Store original volume
+        originalBGMVolume = savedBGMVolume;
 
-        // Add listener for the slider to change volume in real-time
+        float savedSFXVolume = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+        sfxSlider.value = savedSFXVolume;
+        SetSFXVolume(savedSFXVolume);
+        originalSFXVolume = savedSFXVolume;
+
         bgmSlider.onValueChanged.AddListener(SetBGMVolume);
+        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
-    /// <summary>
-    /// Saves settings and returns.
-    /// </summary>
     public void Apply()
     {
-        // Save Invert Y-Axis settings
         bool isInverted = invertYToggle.isOn;
         PlayerPrefs.SetInt("isInverted", isInverted ? 1 : 0);
 
-        // Save BGM volume settings
         PlayerPrefs.SetFloat("BGMVolume", bgmSlider.value);
+        PlayerPrefs.SetFloat("SFXVolume", sfxSlider.value);
         PlayerPrefs.Save();
 
-        // Return to the previous scene
         string previousScene = PlayerPrefs.GetString("previousScene", "MainMenu");
         SceneManager.LoadScene(previousScene);
     }
 
-    /// <summary>
-    /// Discards changes and returns.
-    /// </summary>
     public void Back()
     {
-        // Reset to the original state if changes are discarded
         invertYToggle.isOn = originalInvertedState;
         bgmSlider.value = originalBGMVolume;
-        SetBGMVolume(originalBGMVolume);
+        sfxSlider.value = originalSFXVolume;
 
-        // Return to the previous scene
+        SetBGMVolume(originalBGMVolume);
+        SetSFXVolume(originalSFXVolume);
+
         string previousScene = PlayerPrefs.GetString("previousScene", "MainMenu");
         SceneManager.LoadScene(previousScene);
     }
 
-    /// <summary>
-    /// Sets the BGM volume in the Audio Mixer.
-    /// </summary>
-    /// <param name="sliderValue">Value from the slider (0 to 1).</param>
     public void SetBGMVolume(float sliderValue)
     {
-        // Convert the slider value (0 to 1) to decibels for the AudioMixer
         float dBValue = Mathf.Log10(sliderValue) * 20;
         audioMixer.SetFloat("BGMVolume", dBValue);
+    }
+
+    public void SetSFXVolume(float sliderValue)
+    {
+        float dBValue = Mathf.Log10(sliderValue) * 20;
+        audioMixer.SetFloat("SFXVolume", dBValue);
     }
 }

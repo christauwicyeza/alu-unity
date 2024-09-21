@@ -535,6 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invertYToggle: {fileID: 1288652826}
   bgmSlider: {fileID: 1137738332}
+  sfxSlider: {fileID: 727359252}
   audioMixer: {fileID: 24100000, guid: 1482166735349514f8b51495c8479512, type: 2}
 --- !u!1 &367493890
 GameObject:
