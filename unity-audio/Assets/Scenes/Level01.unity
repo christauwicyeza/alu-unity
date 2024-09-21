@@ -8356,6 +8356,18 @@ PrefabInstance:
       propertyPath: pauseCanvas
       value: 
       objectReference: {fileID: 677366782878306371}
+    - target: {fileID: 7146902761378933112, guid: 3be5086a36dfec84e9cebb4c7e09be35,
+        type: 3}
+      propertyPath: normalSnapshot
+      value: 
+      objectReference: {fileID: -1541311690823397730, guid: 1482166735349514f8b51495c8479512,
+        type: 2}
+    - target: {fileID: 7146902761378933112, guid: 3be5086a36dfec84e9cebb4c7e09be35,
+        type: 3}
+      propertyPath: pausedSnapshot
+      value: 
+      objectReference: {fileID: 4102277823661120814, guid: 1482166735349514f8b51495c8479512,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
