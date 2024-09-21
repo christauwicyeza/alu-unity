@@ -97,6 +97,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 09527b96aa5154c488ac6425254aa678
   m_FloatValues:
     44b184422560ec247bee50e4ed03565c: 0
+    ed5da44315675a74eb7ac73e888060dd: 1
     2dcfb1f5c047d424e8a4662df6d6e7d0: 2.4583216
     d6a7421945c1c934aa63821625ace6d9: 0.6205512
     ebb4b369c1646a84f8cc605c18ba247e: 4.648096
@@ -134,7 +135,9 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 44b184422560ec247bee50e4ed03565c
+    name: BGMVolume
   m_AudioMixerGroupViews:
   - guids:
     - 9f10af813e7242e4894b0cb0654eff4d
@@ -226,9 +229,10 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 428f5d814736e3e43a3b01e5cea7c2f6
   m_FloatValues:
-    44b184422560ec247bee50e4ed03565c: -20
+    44b184422560ec247bee50e4ed03565c: -0.09
+    ed5da44315675a74eb7ac73e888060dd: 1
     2dcfb1f5c047d424e8a4662df6d6e7d0: 2.4583216
-    9d14ffe6420f17343975194efc87dbfe: 62
+    9d14ffe6420f17343975194efc87dbfe: 10
     d6a7421945c1c934aa63821625ace6d9: 0.6205512
     ebb4b369c1646a84f8cc605c18ba247e: 4.648096
     a65b743d80ffc1d4a860f63c99de2ea3: 25
