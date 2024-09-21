@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;  // Add this to use AudioMixer and Snapshots
 
 /// <summary>
 /// Manages pausing, resuming, restarting, and scene navigation.
@@ -11,6 +12,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseCanvas;
     private bool isPaused = false;
 
+    // Add these variables for the AudioMixer Snapshots
+    public AudioMixerSnapshot normalSnapshot;
+    public AudioMixerSnapshot pausedSnapshot;
+    public float transitionTime = 0.5f;  // Adjust transition time between snapshots
+
     /// <summary>
     /// Pauses the game.
     /// </summary>
@@ -19,6 +25,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         pauseCanvas.SetActive(true);
         Time.timeScale = 0f;
+        pausedSnapshot.TransitionTo(transitionTime);  // Transition to paused snapshot
     }
 
     /// <summary>
@@ -29,6 +36,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
+        normalSnapshot.TransitionTo(transitionTime);  // Transition back to normal snapshot
     }
 
     /// <summary>
@@ -38,6 +46,7 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
+        normalSnapshot.TransitionTo(transitionTime);  // Ensure normal snapshot is active after restart
     }
 
     /// <summary>
@@ -46,6 +55,7 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu()
     {
         Time.timeScale = 1f;
+        normalSnapshot.TransitionTo(transitionTime);  // Ensure normal snapshot is active when switching scenes
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -55,6 +65,7 @@ public class PauseMenu : MonoBehaviour
     public void Options()
     {
         Time.timeScale = 1f;
+        normalSnapshot.TransitionTo(transitionTime);  // Ensure normal snapshot is active when switching scenes
         SceneManager.LoadScene("Options");
     }
 
